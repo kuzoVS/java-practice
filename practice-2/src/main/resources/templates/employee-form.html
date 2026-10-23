@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${employee.id == null} ? 'Добавление сотрудника' : 'Редактирование сотрудника'"></title>
+    <style>
+        .error { color: red; }
+    </style>
+</head>
+<body>
+<h1 th:text="${employee.id == null} ? 'Добавление сотрудника' : 'Редактирование сотрудника'"></h1>
+
+<form th:action="@{/employees/add}" th:object="${employee}" method="post">
+    <input type="hidden" th:field="*{id}">
+    <p>
+        <label>ФИО:</label>
+        <input type="text" th:field="*{fullName}">
+        <span class="error" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></span>
+    </p>
+    <p>
+        <label>Email:</label>
+        <input type="text" th:field="*{email}">
+        <span class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+    </p>
+    <p>
+        <label>Телефон:</label>
+        <input type="text" th:field="*{phone}" placeholder="+79991234567">
+        <span class="error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
+    </p>
+    <p>
+        <label>Должность:</label>
+        <input type="text" th:field="*{position}">
+        <span class="error" th:if="${#fields.hasErrors('position')}" th:errors="*{position}"></span>
+    </p>
+    <p>
+        <label>Зарплата:</label>
+        <input type="number" step="0.01" th:field="*{salary}">
+        <span class="error" th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"></span>
+    </p>
+    <p>
+        <label>
+            <input type="checkbox" th:field="*{active}"> Активен
+        </label>
+    </p>
+    <button type="submit">Сохранить</button>
+    <a href="/employees">Назад</a>
+</form>
+</body>
+</html>
